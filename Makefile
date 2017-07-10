@@ -52,10 +52,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = main.cpp \
-		mainwindow.cpp qrc_resources.cpp \
+		mainwindow.cpp \
+		glwidget.cpp qrc_resources.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		glwidget.o \
 		qrc_resources.o \
 		moc_mainwindow.o
 DIST          = ../../Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
@@ -218,6 +220,7 @@ DIST          = ../../Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.9/gcc_64/mkspecs/features/qt_config.prf \
 		../../Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../Qt/5.9/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../Qt/5.9/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../Qt/5.9/gcc_64/mkspecs/features/toolchain.prf \
 		../../Qt/5.9/gcc_64/mkspecs/features/default_pre.prf \
@@ -237,8 +240,10 @@ DIST          = ../../Qt/5.9/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.9/gcc_64/mkspecs/features/exceptions.prf \
 		../../Qt/5.9/gcc_64/mkspecs/features/yacc.prf \
 		../../Qt/5.9/gcc_64/mkspecs/features/lex.prf \
-		GameGui.pro mainwindow.h main.cpp \
-		mainwindow.cpp
+		GameGui.pro mainwindow.h \
+		glwidget.h main.cpp \
+		mainwindow.cpp \
+		glwidget.cpp
 QMAKE_TARGET  = GameGui
 DESTDIR       = 
 TARGET        = GameGui
@@ -410,6 +415,7 @@ Makefile: GameGui.pro ../../Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf ../../Qt/
 		../../Qt/5.9/gcc_64/mkspecs/features/qt_config.prf \
 		../../Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../Qt/5.9/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../Qt/5.9/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../Qt/5.9/gcc_64/mkspecs/features/toolchain.prf \
 		../../Qt/5.9/gcc_64/mkspecs/features/default_pre.prf \
@@ -595,6 +601,7 @@ Makefile: GameGui.pro ../../Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf ../../Qt/
 ../../Qt/5.9/gcc_64/mkspecs/features/qt_config.prf:
 ../../Qt/5.9/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../Qt/5.9/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../Qt/5.9/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../Qt/5.9/gcc_64/mkspecs/features/toolchain.prf:
 ../../Qt/5.9/gcc_64/mkspecs/features/default_pre.prf:
@@ -635,8 +642,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.9/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h glwidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp glwidget.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -1028,8 +1035,64 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../Qt/5.9/gcc_64/include/QtGui/qtouchdevice.h \
 		../../Qt/5.9/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../Qt/5.9/gcc_64/include/QtGui/qicon.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		../../Qt/5.9/gcc_64/include/QtCore/QVariant \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QAction \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qaction.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QApplication \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qapplication.h \
+		../../Qt/5.9/gcc_64/include/QtCore/qcoreapplication.h \
+		../../Qt/5.9/gcc_64/include/QtCore/qeventloop.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../Qt/5.9/gcc_64/include/QtGui/qguiapplication.h \
+		../../Qt/5.9/gcc_64/include/QtGui/qinputmethod.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QButtonGroup \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QHeaderView \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qheaderview.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qframe.h \
+		../../Qt/5.9/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../Qt/5.9/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../Qt/5.9/gcc_64/include/QtGui/qvalidator.h \
+		../../Qt/5.9/gcc_64/include/QtCore/qregularexpression.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qslider.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qstyle.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qtabbar.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qrubberband.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QMenu \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qmenu.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QMenuBar \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qmenubar.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QOpenGLWidget \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qopenglwidget.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QWidget \
+		../../Qt/5.9/gcc_64/include/QtGui/QSurfaceFormat \
+		../../Qt/5.9/gcc_64/include/QtGui/qsurfaceformat.h \
+		../../Qt/5.9/gcc_64/include/QtGui/qopengl.h \
+		../../Qt/5.9/gcc_64/include/QtCore/qt_windows.h \
+		../../Qt/5.9/gcc_64/include/QtGui/qopengles2ext.h \
+		../../Qt/5.9/gcc_64/include/QtGui/qopenglext.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QSlider \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QStatusBar \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qstatusbar.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QToolBar \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qtoolbar.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qlayout.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../Qt/5.9/gcc_64/include/QtWidgets/qgridlayout.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
+
+glwidget.o: glwidget.cpp glwidget.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o glwidget.o glwidget.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

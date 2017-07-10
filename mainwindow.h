@@ -18,6 +18,14 @@ public:
 private slots:
     void on_log_rec_toggled(bool arg1);
 
+    void on_log_rec_triggered();
+
+    void on_log_rec_triggered(bool checked);
+
+    void on_log_play_triggered(bool checked);
+
+    void on_action_triggered(bool checked);
+
 private:
     Ui::MainWindow *ui;
 };

@@ -6,15 +6,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    connect(ui -> auto_resize, &QAction::triggered,
+            ui ->openGLWidget, &GLWidget::toggleAspectRatio);
 }
+
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-
-void MainWindow::on_log_rec_toggled(bool arg1)
+void MainWindow::on_log_rec_triggered(bool checked)
 {
+    ui->log_rec->setChecked( checked );
+}
 
+void MainWindow::on_log_play_triggered(bool checked)
+{
+    //close();
 }
