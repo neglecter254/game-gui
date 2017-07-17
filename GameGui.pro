@@ -30,7 +30,8 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h \
-    glwidget.h
+    glwidget.h \
+    robots.h
 
 FORMS += \
         mainwindow.ui
